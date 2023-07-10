@@ -1,8 +1,10 @@
 import express , {Express, Request, Response} from 'express';
 import mysql, {Connection} from 'mysql2';
+import {config} from 'dotenv';
 
+config();
 const app:Express = express();
-const port: number = 3000;
+const port: number = parseInt(process.env.PORT!, 10);
 
 interface configData {
     host : string,
@@ -12,16 +14,16 @@ interface configData {
 }
 
 const configConnect : configData ={
-        host: 'localhost',
-        user: 'root',
-        password: 'Docenko4493!',
-        database: 'userdb1'
+        host: process.env.HOST!,
+        user: process.env.USER!,
+        password: process.env.PASSWORD!,
+        database: process.env.DATABASE!
 }
 
 const connection : Connection  = mysql.createConnection(configConnect);
 
 app.get('/', (req: Request, res: Response) => {
-    res.send('Hello Pasha ,TypeScript and Node.js!');
+    res.send('Hello Pasha Dotsenko ,TypeScript and Node.js!');
 });
 
 app.listen(port, async () => {
