@@ -1,6 +1,7 @@
 import express , {Express, Request, Response} from 'express';
 import mysql, {Connection} from 'mysql2';
 import {config} from 'dotenv';
+import userRoutes from "./routes/user.routes";
 
 config();
 const app:Express = express();
