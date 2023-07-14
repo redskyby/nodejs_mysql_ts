@@ -23,9 +23,8 @@ const configConnect : configData ={
 
 const connection : Connection  = mysql.createConnection(configConnect);
 
-app.get('/', (req: Request, res: Response) => {
-    res.send('Hello Pasha Dotsenko ,TypeScript and Node.js!');
-});
+app.use(express.json());
+app.use('/api' , userRoutes);
 
 app.listen(port, async () => {
     await connection.connect();
