@@ -3,17 +3,34 @@ import connection from "../db";
 
 class UserController {
     async createUser(req: Request, res: Response) {
-        const {name, surname} = req.body;
-        const newPerson = await connection.execute(
-            `INSERT INTO person (name, surname) VALUES (?, ?);`,
-            [name , surname]
-        )
+        try {
+            const {name, surname} = req.body;
+            const newPerson = await connection.promise().query(
+                `INSERT INTO person (name, surname) VALUES ("${name}", "${surname}")`
+            )
 
-        res.json(newPerson);
+            res.json(newPerson);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({message: "Server error"});
+        }
+
     }
 
     async getUser(req: Request, res: Response) {
+        try {
 
+            const result = await connection.promise().query(
+                'SELECT * FROM person;'
+            );
+
+
+
+            res.json(result[0]);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({ message: "Server error" });
+        }
     }
 
     async getOneUser(req: Request, res: Response) {

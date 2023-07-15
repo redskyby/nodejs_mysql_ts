@@ -6,11 +6,10 @@
   "scripts": {
     "build": "rimraf dist && npx tsc",
     "start": "node dist/index.js",
-    "dev": "npx tsc -w & nodemon dist/index.js",
     "serve": "concurrently \"tsc -w\" \"nodemon dist/index.js\""
   },
   "keywords": [],
-  "author": "",
+  "author": "Pasha",
   "license": "ISC",
   "dependencies": {
     "concurrently": "^8.2.0",
