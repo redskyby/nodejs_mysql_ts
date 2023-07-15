@@ -56,7 +56,14 @@ class UserController {
                      surname = "${surname}"
                  WHERE id = "${id}";`
             )
-            res.json(user[0]);
+
+            const result = await connection.promise().query(
+                `SELECT *
+                 FROM person
+                 WHERE id = "${id}";`
+            );
+
+            res.json(result[0]);
         } catch (e) {
             console.error(e);
             res.status(500).json({message: "Server error"});
