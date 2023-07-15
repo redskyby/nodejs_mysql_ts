@@ -71,7 +71,19 @@ class UserController {
     }
 
     async deleteUser(req: Request, res: Response) {
+        try {
+            const id: string = req.params.id;
+            const result = await connection.promise().query(
+                `DELETE
+                 FROM person
+                 WHERE id = "${id}";`
+            );
 
+            res.json(result);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({message: "Server error"});
+        }
     }
 }
 
