@@ -33,20 +33,34 @@ class UserController {
 
     async getOneUser(req: Request, res: Response) {
         try {
-            const id = req.params.id;
+            const id: string = req.params.id;
             const result = await connection.promise().query(
-                `SELECT * FROM person WHERE id = "${id}";`
+                `SELECT *
+                 FROM person
+                 WHERE id = "${id}";`
             );
 
             res.json(result[0]);
-        }catch (e) {
+        } catch (e) {
             console.error(e);
             res.status(500).json({message: "Server error"});
         }
     }
 
     async updateUser(req: Request, res: Response) {
-
+        try {
+            const {id, name, surname} = req.body;
+            const user = await connection.promise().query(
+                `UPDATE person
+                 SET name    = "${name}",
+                     surname = "${surname}"
+                 WHERE id = "${id}";`
+            )
+            res.json(user[0]);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({message: "Server error"});
+        }
     }
 
     async deleteUser(req: Request, res: Response) {
