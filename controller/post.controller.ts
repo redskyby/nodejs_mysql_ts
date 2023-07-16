@@ -18,7 +18,18 @@ class PostController {
     }
 
     async getPost(req: Request, res: Response) {
-
+        try {
+            const id = req.query.id;
+            const posts = await connection.promise().query(
+                `SELECT *
+                 FROM post
+                 WHERE user_id = "${id}";`
+            )
+            res.json(posts[0]);
+        } catch (e) {
+            console.error(e);
+            res.status(500).json({message: "Server error"});
+        }
     }
 }
 
