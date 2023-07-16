@@ -12,7 +12,7 @@ const port: number = parseInt(process.env.PORT!, 10);
 
 app.use(express.json());
 app.use('/api' , userRoutes);
-app.use('/post' , postRoutes);
+app.use('/api' , postRoutes);
 
 app.listen(port, async () => {
     await connection.connect();
